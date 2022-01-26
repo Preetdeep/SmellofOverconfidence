@@ -1,0 +1,121 @@
+---
+title: "Smell Of Confidence: How race mediates gender propensity for over-confidence"
+author: "Dr Preet Deep Singh"
+affiliation: "Invest India"
+date: "22/01/2022"
+output: 
+  bookdown::pdf_document2:
+    toc: no
+    citation_package: natbib
+    number_sections: yes
+    keep_tex: yes
+abstract: "Batters would be overconfident after a boundary and under pressure after a dot ball. The pressure would be higher in the second innings and overconfidence might dominate in the first innings. We look at over 9 lakh deliveries and find that batters are more likely to get out after a dot ball in the second innings as compared to the first innings. Similarly, batters are more likely to be dismissed after a boundary in the first innings than in the second innings. "
+documentclass: "article"
+editor_options: 
+  chunk_output_type: console
+  markdown: 
+    wrap: 72
+bibliography: references.bib
+link-citations: true
+csl: apa.csl
+---
+
+```{r setup, echo=FALSE, message=FALSE,warning=FALSE, tidy=TRUE}
+knitr::opts_chunk$set(
+	echo = FALSE,
+	message = FALSE,
+	warning = FALSE
+)
+# Data Source: https://www.kaggle.com/karthickragavendran/all-odi-since-2006
+## This also checks out
+
+library(dplyr)
+library(stargazer)
+library(bookdown)
+library(ARTofR)
+library(ggplot2)
+#library(BSDA) #For z test
+#library(dgof) #For z test
+library(readr)
+
+
+```
+
+\section{Introduction}
+
+
+
+\section{Data and Methodology}
+Data is sourced from https://www.kaggle.com/jmainland/national-geographic-smell-survey?select=NGSS+The+Actual+Survey+from+1986.pdf 
+
+\begin{quote}
+Context
+
+In 1986 the Monell Chemical Senses Center and National Geographic magazine teamed up to mail nearly 11 million copies of the September issue, each containing six scratch-and-sniff patches. The odors were banana, musk, cloves, rose, androstenone (a chemical found in sweat), and mercaptans (compounds added to natural gas so that we can identify leaks). This csv contains the responses of 1.42 million readers.
+
+Content
+
+The dataset contains one xlsx file and a data dictionary
+
+Acknowledgements
+
+Banner Photo by Richárd Ecsedi on Unsplash
+
+If you use this dataset, please cite:
+Gilbert, A.N. and Wysocki, C.J. National Geographic Smell Survey: The Results. National Geographic, 1987, 172, 514‑525.
+
+Inspiration
+
+What factors predict whether someone is likely to lose their sense of smell?
+Do men or women have a better sense of smell?
+\end{quote}
+\subsection{Average Estimate of Ability}
+Mean estimate of ability of the respondents to smell, as self reported based on gender.
+
+\subsection{Calculation of Correct Responses}
+Second sample is Musk. It should be rated as Musky. We code a 1/0 variable as 1 in case the response is Musky and 0 otherwise.
+Third sample is Cloves. It should be rated as Spicy We code a 1/0 variable as 1 in case the response is Spicy and 0 otherwise.
+Fourth sample is Rose. It should be rated as Floral or Sweet We code a 1/0 variable as 1 in case the response is Floral or Sweet and 0 otherwise.
+Sixth sample is Gas. It should be rated as Foul or OTher We code a 1/0 variable as 1 in case the response is Foul or Other and 0 otherwise.
+
+First sample pertains to Banana. It could be classified as Fruit or Sweet. We exclude it in our analysis. Body Odour should smell foul but can be classified as other. We feel these two might not show accurate results and therefore only use the other four.
+
+Self-rating of smelling ability is a variable from 1-5. 1 being the lowest and 5 representing an excellent assessment of the one's ability.
+
+We calculate the score of person as the sum of smells 2-5 with the highest score possible of 4 and the lowest of 0. 
+We subtract Score from Self Rating. We thereby get accuracy of self perception.
+In case of low score(0) and low self assessment(1), the accuracy of self perception would be 1(1-0). 
+In case of low score(0) and high self assessment(5), the accuracy of self perception would be 5(5-0).
+In case of high score(4) and low self assessment(1), the accuracy of self perception would be -3(1-4).
+In case of high score(4) and high self assessment(5), the accuracy of self perception would be 1(5-4).
+
+For the sake of convenience, we subtract 1 from the score and therefore get extreme case scores as under
+Low Low 0 (Bad ability and good awareness)
+High High 0 (Good ability and good awareness)
+High Low = 4 (Over confidence in ability)
+Low High = -4 (under confidence in ability)
+
+
+\subsection{Self-awareness}
+Absolute value of accuracy of self perception score for men and Women.
+
+\subsection{OverConfidence}
+Value of accuracy of self perception score for men and Women.
+
+\subsection{Regression}
+Value of accuracy of self perception score for men and Women while controlling for Race, Age, Working environment etc. 
+
+\section{Results}
+
+\section{Conclusion and Limitations}
+
+In a series of papers (@singh2021make ) , I try to examine the following questions.
+
+
+Some of my other work pertains to perceptions of founders in startups ([@singh2021perception1; @singh2021perception2; @singh2021perception3; @singh2021perception4; @singh2021perception5; @singh2021start]), Olympic medals ([@singh2021olympic; @singh2021names]), Covid data [@singh2020close; @singh2020quantifying], trading strategy [@singh2015square], CSR [@singh2016whether], Crowdfunding [@singh2021crowdfunding; @singh2021emotional] and some Finance and Director diligence stuff [@singh2016impact; @singh2016executive; @singh2017essay] .
+
+
+
+
+
+
